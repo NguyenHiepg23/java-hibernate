@@ -22,8 +22,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>6.1.7.Final</version>
-      <type>pom</type>
+      <version>6.2.6.Final</version>
     </dependency>
 
     <dependency>
@@ -33,9 +32,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.10</version>
-    </dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>8.0.0.Final</version>
+    </dependency> 
   </dependencies>
 </project>
