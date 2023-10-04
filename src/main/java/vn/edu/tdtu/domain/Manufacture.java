@@ -22,7 +22,7 @@ public class Manufacture {
 
 
 
-    @OneToMany(mappedBy = "Manufacture", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "manufacture", cascade = CascadeType.ALL)
     private List<Phone> phones;
 
     public Manufacture() {}
@@ -76,5 +76,5 @@ public class Manufacture {
     @Override
 	public String toString() {
 		return "Manufacture [id=" + id + ", name=" + name + ", location=" + location + ", employee=" + employee + "]";
-	}
+	} 
 }

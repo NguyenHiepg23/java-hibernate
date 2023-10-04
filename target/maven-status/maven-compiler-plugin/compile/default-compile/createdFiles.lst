@@ -1,0 +1,6 @@
+vn\edu\tdtu\utils\HibernateUtil.class
+vn\edu\tdtu\domain\Phone.class
+vn\edu\tdtu\Program.class
+vn\edu\tdtu\dao\PhoneDAO.class
+vn\edu\tdtu\domain\Manufacture.class
+vn\edu\tdtu\dao\ManufactureDAO.class

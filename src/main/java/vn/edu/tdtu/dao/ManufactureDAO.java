@@ -25,21 +25,21 @@ public class ManufactureDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			// session.getTransaction().rollback();
 			return false;
 		}
 	}
 
-	public Manufacture get(int id) {
+	public Manufacture get(String id) {
 		try {
-			session.getTransaction().begin(); //bắt đầu kb db tạm thời
-			Manufacture manufacture = session.get(Manufacture.class, String.valueOf(id)); //kb 1 oj 
-			session.getTransaction().commit(); //đẩy db(code) lên DB
-			session.close(); //sau đó close
+			session.getTransaction().begin(); 
+			Manufacture manufacture = session.get(Manufacture.class, String.valueOf(id)); 
+			session.getTransaction().commit(); 
+			session.close(); 
 			return manufacture;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();//quay lại thao tác ban đầu
+			session.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -59,10 +59,10 @@ public class ManufactureDAO {
 		}
 	}
 
-	public boolean remove(int id) {
+	public boolean remove(String id) {
 		try {
 			session.getTransaction().begin();
-			Manufacture manufacture = session.get(Manufacture.class, String.valueOf(id));
+			Manufacture manufacture = session.get(Manufacture.class, id);
 			if (manufacture != null) {
 				session.remove(manufacture);
 				session.getTransaction().commit();
@@ -99,11 +99,10 @@ public class ManufactureDAO {
 		try {
 			session.getTransaction().begin();
 			String hql = "UPDATE Manufacture SET Name = :name, Location = :location, Employee = :employee WHERE Id = :id";
-			//lấy từ DB
-			//update từ model
+
 			Query<Manufacture> query = session.createQuery(hql, Manufacture.class);
-			//jdbc
-			query.setParameter("id", m.getId()); //lấy id truyền lại String hql
+
+			query.setParameter("id", m.getId()); 
 			query.setParameter("name", m.getName());
 			query.setParameter("location", m.getLocation());
 			query.setParameter("employee", m.getEmployee());

@@ -13,7 +13,7 @@ public class HibernateUtil {
 
     static {
         Configuration conf = new Configuration();
-        conf.configure("src/main/resources/hibernate.cfg.xml");
+        conf.configure("hibernate.cfg.xml");
 
         conf.addAnnotatedClass(Manufacture.class);
         conf.addAnnotatedClass(Phone.class);

@@ -3,11 +3,10 @@ package vn.edu.tdtu.dao;
 import vn.edu.tdtu.domain.Phone;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import jakarta.persistence.NoResultException;
 
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -17,55 +16,56 @@ public class PhoneDAO {
     Session session = HibernateUtil.getFactory().openSession();
 
     public boolean add(Phone phone) {
-        Transaction transaction = null;
         try {
-            transaction = session.beginTransaction();
+            session.getTransaction().begin();	
             session.persist(phone);
-            transaction.commit();
-            session.close();
+            session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-			session.getTransaction().rollback();
-			return false;    
+			return false;
         }
     }
 
-    public Phone get(int id) {
+    public Phone get(String id) {
 		try {
+			session.getTransaction().begin();
 			Phone phone = session.get(Phone.class, id);
 			session.getTransaction().commit();
 			session.close();
 			return phone;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			// session.getTransaction().rollback();
 			return null;
 		}
 	}
 
     public List<Phone> getAll() {
 		try {
+			session.getTransaction().begin();
             List<Phone> phones = session.createQuery("FROM Phone", Phone.class).getResultList();
 			session.getTransaction().commit();
 			session.close();
 			return phones;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+			// session.getTransaction().rollback();
 			return null;
 		}
 	}
 
-    public boolean remove(int id) {
+    public boolean remove(String id) {
 		try {
 			session.getTransaction().begin();
 			Phone phone = session.get(Phone.class, id);
 			if (phone != null) {
 				session.remove(phone);
 				session.getTransaction().commit();
+				session.close();
 				return true;
 			}
+			
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,8 +120,7 @@ public class PhoneDAO {
     public Phone getPhoneWithHighestPrice() {
         try {
 			session.getTransaction().begin();
-			String hql = "FROM Phone ORDER BY Price DESC";
-			Query<Phone> query = session.createQuery(hql, Phone.class);
+			Query<Phone> query = session.createQuery("FROM Phone ORDER BY Price DESC", Phone.class);
 			query.setMaxResults(1);
 			Phone result = query.getSingleResult();
 			session.getTransaction().commit();
@@ -137,8 +136,7 @@ public class PhoneDAO {
     public List<Phone> getPhonesSortedByCountry() {
 		try {
 			session.getTransaction().begin();
-			String hql = "FROM Phone ORDER BY Country ASC, Price DESC";
-			Query<Phone> query = session.createQuery(hql, Phone.class);
+			Query<Phone> query = session.createQuery("FROM Phone ORDER BY Country ASC, Price DESC", Phone.class);
 			List<Phone> result = query.getResultList();
 			session.getTransaction().commit();
 			session.close();

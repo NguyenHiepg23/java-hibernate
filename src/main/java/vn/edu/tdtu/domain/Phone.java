@@ -104,7 +104,7 @@ public class Phone  {
 
     @Override
 	public String toString() {
-		return "Phone [id=" + id + ", name=" + name + ", price=" + price + ", color=" + color + ", country=" + country
-				+ ", quantity=" + quantity + "]";
+		return "\n" + "Phone [id=" + id + ", name=" + name + ", price=" + price + ", color=" + color + ", country=" + country
+				+ ", quantity=" + quantity + "]" + "\n";
 	}
 }
